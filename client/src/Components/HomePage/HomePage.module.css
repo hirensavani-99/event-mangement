@@ -1,0 +1,30 @@
+.root{
+    width: 100vw;
+    height: 100vh;
+    background-color:#F5F5F5;
+}
+
+.header{
+    background-color: rgb(75, 70, 70);
+    padding: -100%;
+    
+}
+
+.findevent{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10%;
+   transition: 1s
+   
+}
+
+
+
+@media screen and (max-width: 600px) {
+    .findevent{
+        flex-direction: column;
+    }
+}
+

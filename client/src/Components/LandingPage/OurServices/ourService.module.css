@@ -1,0 +1,51 @@
+.root{
+    color: #fff;
+    max-height: 400px;
+    max-width: 400px;
+    border: 1 px solid red;
+  
+    
+}
+
+.pic{
+    border-radius: 10% 40% 10% 40%;
+    height: 300px;
+    width: 400px;
+    border-bottom: 10px solid white;
+    border-left: 8px solid  #fff ;
+    margin: 10PX;
+}
+
+.lable{
+    border: 1px solid greenyellow;
+    justify-content: space-around;
+    align-items: center;
+    margin: 1% 5%;
+    
+}
+
+
+
+
+.container{
+    
+    margin: 3% 10%;
+    color: #fff;
+    font-family: nunito;
+
+
+}
+
+.hr{
+    width: 100%;
+}
+
+.heading{
+    margin: 2%;
+}
+
+.serviceContainer{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}

@@ -1,0 +1,19 @@
+
+.root0{
+    width: 100vw;
+    height: 100vh;
+    background-color:#F5F5F5;
+}
+
+.root{
+    display: flex;
+    flex-direction: row;
+    margin: 2%;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.eventcard{
+    margin: 2%;
+}

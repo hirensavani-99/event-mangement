@@ -1,0 +1,16 @@
+.root{
+    min-height: 100vh;
+    background-image: url("./assets/bacground.jpg");
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+@media screen and (max-width: 600px) {
+    .root{
+        min-width : 100vw;
+        min-height : 100vh;
+    }
+ 
+}

@@ -1,0 +1,127 @@
+.root{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: "Nunito";
+    
+}
+
+.root1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 15vh;
+    font-family: "Nunito";
+    
+}
+
+
+.appBar{
+    background: none;
+    
+}
+
+
+.iconDetail{
+    color: #fff;
+    font-size: 1.5rem;
+    text-decoration: none;
+    transition: 0.4s;
+    margin: 10px;
+  
+}
+
+.iconDetail:hover{
+    font-size: 2rem;
+    text-decoration: none;
+    color: greenyellow;
+    margin-left: 150px;
+    
+    border-bottom:1px solid white;
+}
+
+.active{
+    margin-top: 2px;
+    border-bottom: 3px solid greenyellow;
+   
+}
+
+
+.appBarWrapper{
+    
+    width: 80%;
+    margin: 0 auto;
+    
+}
+
+.appBarTitle{
+    flex-grow: 1;
+    cursor: pointer;
+    color: #fff;
+
+    left: 10px;
+    top: 7px;
+    padding: 5px;
+}
+
+.nameMiddle{
+    color: #5AFF3D
+}
+
+.container{
+    text-align: center;
+}
+
+.title{
+    color: #fff;
+    font-size: 4rem;
+}
+
+.godown{
+    color: #5AFF3D;
+    font-size: 4rem;
+}
+
+.dropdwnbtn{
+    visibility: hidden;
+    position: absolute;
+    right: 10px;
+    top: 7px;
+    font-size: 25px
+}
+
+
+@media screen and (max-width: 600px) {
+   
+    .list{
+        display: flex;
+        flex-direction: column;
+        height: 250px;
+        width: 250px;
+        margin: 30px 50px;
+        background: #fff;
+        border-radius: 5%;
+        transition: 0.3s;
+    }
+     
+    .iconDetail{
+        width: 200px;
+        text-align: center;
+        margin: 2px 20px;
+        padding: 10px 0;
+        color: black;
+        border: 1 px solid greenyellow;
+
+    }
+
+    .appBarTitle{
+        position: absolute;
+    }
+
+    .dropdwnbtn{
+        visibility: visible;
+        display: block;
+        margin: 10px 10px 0 0;
+    }
+  }

@@ -1,0 +1,9 @@
+.root{
+    margin: 0.5rem;
+}
+
+.links{
+    display: flex;
+    justify-content: space-around;
+}
+

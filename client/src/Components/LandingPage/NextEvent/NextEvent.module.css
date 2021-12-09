@@ -1,0 +1,21 @@
+.root{
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    
+}
+
+.tags{
+    color: #fff;
+    font-family:nunito;
+    margin-left: 12%;
+}
+
+.hr{
+    width: 80%;
+    margin: 0 10%;
+    color: #fff;
+}

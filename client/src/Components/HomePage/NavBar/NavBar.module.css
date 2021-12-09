@@ -1,0 +1,19 @@
+
+
+.appBarTitle{
+    flex-grow: 1;
+    cursor: pointer;
+    color: #fff;
+  
+    left: 10px;
+    top: 7px;
+    padding: 5px;
+}
+
+.nameMiddle{
+    color: #5AFF3D
+}
+
+.link{
+    text-decoration: none;
+}

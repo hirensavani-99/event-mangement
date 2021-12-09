@@ -1,0 +1,35 @@
+
+.root{
+
+    color: #fff;
+    margin: 0 10%;
+    font-family: nunito;
+    
+  
+}
+
+.pic{
+height: 300px;
+width: 400px;
+border-radius: 50% 5% 50% 5%;
+
+border: 1px solid greenyellow;
+border-bottom: 9px solid yellow;
+}
+
+
+
+.root1{
+    display: flex;
+}
+
+.subroot{
+    display: flex;
+    justify-content: space-between;
+    color: black;
+    
+}
+
+.tag{
+    margin-left: 2%;
+}

@@ -1,0 +1,40 @@
+.root{
+    height: auto;
+    width: 60%;
+    border: 1px solid #adff2f ;
+    margin: 0 20%;
+    padding :20px;
+    color: #fff;
+    font-weight: 500;
+    -webkit-box-shadow: 8px 11px 21px 4px rgba(0,0,0,0.78); 
+    box-shadow: 8px 11px 21px 4px rgba(0,0,0,0.78);
+}
+
+.spinner{
+    position: "fixed";
+    top: "50%";
+    left: "50%";
+    transform: "translate(-50%, -50%)";
+    
+}
+
+
+.add{
+    margin-top:1rem;
+}
+
+.alert{
+    margin: 10px 20% 10px 20%;
+}
+
+@media screen and (max-width: 600px) {
+    .root{
+        width: 90%;
+        margin: 5% 5%;
+    }
+
+    
+.alert{
+    margin: 2px 5% 2px 5%;
+}
+}
