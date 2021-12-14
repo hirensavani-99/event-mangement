@@ -9,7 +9,7 @@ const { update } = require('../models/Events')
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, "../frontend/public/uploads")
+        cb(null, "../client/public/uploads")
     },
     filename: (req, file, cb) => {
         cb(null, file.originalname)
@@ -112,7 +112,7 @@ router.get('/eventType', auth, async (req, res) => {
 
 router.patch('/event/:id', auth, async (req, res) => {
 
-    const wantToUpdate = Object.keys(req.body)   //what owner of the event want to modify 
+    //what owner of the event want to modify 
     const allowUpdate = [      // this are the property owner can modify
         'eventType', "eventName", "desc",
         "address", "numberOfPasses", "priceOfPass",
@@ -135,7 +135,11 @@ router.patch('/event/:id', auth, async (req, res) => {
             return res.status(406).send('task is not available')
         }
 
-        wantToUpdate.forEach((update) => event[update] = req.body[update])  // updating an event 
+        wantToUpdate.forEach((update) => {
+            event[update] = req.body[update]
+            // console.log(req.body[update]);
+
+        })  // updating an event 
         await event.save()  // save that updated version of an event
         res.status(200).send(event)
     } catch (e) {
@@ -144,12 +148,65 @@ router.patch('/event/:id', auth, async (req, res) => {
     }
 })
 
+//admin edit event
+
+router.patch('/admin/event/:id', auth, async (req, res) => {
+    if (req.user.isadmin) {
+        console.log(req.params.id);
+
+        const wantToUpdate = Object.keys(req.body)   //what owner of the event want to modify 
+        const allowUpdate = [      // this are the property owner can modify
+            'eventType', "eventName", "desc",
+            "address", "numberOfPasses", "priceOfPass",
+            "advertisement", "picture", "docs", "seen"]
+        const isValidOperation = wantToUpdate.every(update => allowUpdate.includes(update)) // checking that every property falls in allowUpdate array
+
+        if (!isValidOperation) {  // if wantoupdate is not in to allow update
+
+            return res.status(406).send("what you are trying to do is not allowed!")
+        }
+
+        try {
+            // find an event by its id and its owner
+            const event = await Events.findOne({
+                _id: req.params.id
+            })
+
+            //if no such event is there
+            if (!event) {
+                return res.status(406).send('task is not available')
+            }
+            console.log(wantToUpdate);
+            wantToUpdate.forEach((update) => {
+                event[update] = req.body[update]
+                console.log(req.body[update]);
+            })  // updating an event 
+            await event.save()  // save that updated version of an event
+
+            res.status(200).send(event)
+        } catch (e) {
+            console.log(e);
+            return res.status(404).send(e)
+        }
+    }
+})
+
+
+//delet by id
 router.delete("/event/:id", auth, async (req, res) => {
     try {
-        const event = await Events.findOneAndDelete({
+        console.log('x');
+        console.log(req.params.id);
+        const event1 = await Events.findOneAndDelete({
             _id: req.params.id,
             owner: req.user._id
         })
+
+        const event2 = req.user.admin && await Events.findOneAndDelete({
+            _id: req.params.id,
+        })
+
+        const event = event1 || event2
 
         if (!event) {
             return res.status(400).send("no such a event exist!")
@@ -157,7 +214,7 @@ router.delete("/event/:id", auth, async (req, res) => {
 
         res.status(200).send('deleted successfully !')
     } catch (e) {
-        res.status(400).send(e)
+        res.status(400).send('not ')
     }
 })
 
