@@ -8,6 +8,8 @@ import classes from './EventPage.module.css'
 
 import NavBar from '../HomePage/NavBar/NavBar'
 import EventAdmin from './EventAdmin/EventAdmin'
+
+
 export default function EventPage() {
 
     const authCtx = useContext(AuthContex)
@@ -24,6 +26,7 @@ export default function EventPage() {
         getData()
 
     }, [])
+    
 
     console.log(events)
 
@@ -31,9 +34,11 @@ export default function EventPage() {
         <div className={classes.root0}>
             <NavBar />
             <div className={classes.root}>
-                {events && events[0].seen && events.map(event => (<EventCard className={classes.eventcard} event={event} />))}
+                {events && events[0].seen && events.map(event => (<EventCard key={event._id} className={classes.eventcards} event={event} />))}
                 {events && !events[0].seen && (<EventAdmin events={events} />)}
             </div>
+
+
         </div >
     )
 }
