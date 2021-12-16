@@ -51,23 +51,11 @@ export default function Form3(props) {
       formData.append(property, data[property])
     }
 
-    // const requestOptions = {
-    //   method: 'POST',
-    //   headers: { "Authorization": `Bearer ${token}` },
-    //   body: formData
-    // };
 
-    //console.log(requestOptions);
 
-    let x = await axios.post('http://localhost:8000/createEvent', formData, { headers: { "Authorization": `Bearer ${token}`, 'My-Custom-Header': 'foobar' } })
+    let response = await axios.post('http://localhost:8000/createEvent', formData, { headers: { "Authorization": `Bearer ${token}`, 'My-Custom-Header': 'foobar' } })
     window.location.assign('http://localhost:3000/Register_your_event_Now')
-    
-    // fetch('http://localhost:8000/createEvent', requestOptions)
-    //   .then(res => res.json())
-    //   .then(data => console.log(data))
-    //   .catch(err => {
-    //     console.log(err);
-    //   })
+
 
   }
 

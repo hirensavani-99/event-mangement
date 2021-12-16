@@ -2,17 +2,36 @@ import React, { useState, useContext, useEffect, useRef } from 'react'
 import { Button, Modal, Carousel, Form, Col, Row } from 'react-bootstrap'
 import AuthContex from '../../../store/auth-context'
 import axios from 'axios'
+import StripeCheckout from 'react-stripe-checkout'
 
 import classes from './Modal.module.css'
 export default function ModalEvent(props) {
     const authCtx = useContext(AuthContex)
-    let token = authCtx.token
-    const [numberOfPass, setNumberOfPass] = useState(0)
+    let token1 = authCtx.token
+    const [numberOfPass, setNumberOfPass] = useState(1)
 
-    const onChangeNumberOfPass = (e) => {
+    const onChangeNumberOfPass = async (e) => {
         setNumberOfPass(e.target.value)
     }
 
+    const handlePayment = async (token) => {
+        const body = {
+            token,
+            event: props.data,
+            NumberOfPasses: numberOfPass,
+            Charged: numberOfPass * props.data.priceOfPass
+        }
+
+        const headers = {
+            "Authorization": `Bearer ${token1}`,
+            "Content-type": "application/json"
+        }
+
+        const response = await axios.post(`http://localhost:8000/pass/buy/${props.data._id}`, body, { headers: { "Authorization": `Bearer ${token1}` } })
+        console.log(response.data);
+
+    }
+    console.log(process.env.REACT_APP_KEY);
 
 
     return (
@@ -89,6 +108,13 @@ export default function ModalEvent(props) {
                 <Modal.Footer>
                     <Button onClick={props.onHide}>Close</Button>
                     <Button onClick={props.onHide}>Pay</Button>
+                    <StripeCheckout
+                        stripeKey="pk_test_51K6yIdAy7KDVZHoTFOdUB6sRjyJBNhvqKha7UAcn5cKmyy1zxyQlF7nCdkVvvpqCm52VRoHZsPbZhEJlVXNTnu7N00paEBKEL2"
+                        token={handlePayment}
+                        name="Buy your pass"
+                        amount={props.data.priceOfPass * numberOfPass * 100}>
+                        <Button>{`payable amount: ${props.data.priceOfPass * numberOfPass} `}</Button>
+                    </StripeCheckout>
                 </Modal.Footer>
             </Modal>
         </div>

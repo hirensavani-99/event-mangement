@@ -49,6 +49,13 @@ UsersSchema.virtual('event', {
     foreignField: "owner"
 })
 
+UsersSchema.virtual('eventpass', {
+    ref: "EventPasses",                                //to deal with foreign key owner creating virtual schema
+    localField: "_id",
+    foreignField: "user"
+})
+
+
 
 //generating Jwt TOKEN
 UsersSchema.methods.generateToken = async function () {

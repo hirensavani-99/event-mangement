@@ -5,6 +5,8 @@ const auth = require('../middleware/auth')
 const multer = require('multer')
 const { response } = require('express')
 const { update } = require('../models/Events')
+const stripe = require('stripe')('sk_test_51K6yIdAy7KDVZHoT7CX1hKmThwL78dyydqCnZK3gVbTy234MVqbmTi5ZF1sbkg1tJhSHuToxQ0NAqaOH3JhxWnCd00bC8j5Yj5')
+const { v4: uuidv4 } = require('uuid');
 
 
 const storage = multer.diskStorage({
@@ -59,7 +61,7 @@ router.get('/getallEvents', auth, async (req, res) => {
 
 //geting all events
 
-router.get('/sgetallEvents', auth, async (req, res) => {
+router.get('/getallEvents', auth, async (req, res) => {
     try {
         if (req.user.isadmin === true) {
             const event = await Events.find()
@@ -216,6 +218,38 @@ router.delete("/event/:id", auth, async (req, res) => {
     } catch (e) {
         res.status(400).send('not ')
     }
+})
+
+//implementing stripe api
+
+router.post("/event/payment", auth, async (req, res) => {
+
+
+    const { event, token } = req.body;
+    const idempontencyKey = uuidv4()
+
+    console.log(token.id);
+    console.log(idempontencyKey);
+
+    return stripe.customers.create({
+        email: token.email,
+        source: token.id
+    })
+        .then(customer => {
+            stripe.charges.create(
+                {
+                    amount: event.priceOfPass * 100,
+                    currency: 'usd',
+                    customer: customer.id,
+                    receipt_email: token.email,
+                    description: `purchase of ${event.eventName} passes`,
+
+                }, { idempotencyKey: idempotencyKey })
+        })
+        .then(result => {
+            res.status(200).json(result)
+        })
+        .catch(err => { res.status(400).json(err) })
 })
 
 module.exports = router

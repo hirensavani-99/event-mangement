@@ -7,7 +7,7 @@ const EventSchema = mongoose.Schema({
         type: String,
         enum: ["FestivalEvents", "Seminars", "Compition", "SocialEvents", "EducationalEvents", "ClubParty"],  //typeof event we are organizing
         //to sort event type
-       // require: true,
+        // require: true,
     },
     eventName: {
         type: String,
@@ -24,7 +24,7 @@ const EventSchema = mongoose.Schema({
     eventDate: {
         type: String,
         max: '20227-05-23',
-      //  require: true
+        //  require: true
     },
     address: {
         type: String,
@@ -34,7 +34,7 @@ const EventSchema = mongoose.Schema({
     },
     numberOfPasses: {
         type: Number,
-       // require: true,
+        // require: true,
         // min: 20,                                            //how much passes thry want to sell on this platform
         // max: 10000
     },
@@ -66,6 +66,12 @@ const EventSchema = mongoose.Schema({
 }, {
     timestamps: true
 })
+EventSchema.virtual('eventPass', {
+    ref: "EventPasses",                                //to deal with foreign key owner creating virtual schema
+    localField: "_id",
+    foreignField: "event"
+})
+
 
 //comnnecting schema with model
 const Event = mongoose.model('event', EventSchema)
