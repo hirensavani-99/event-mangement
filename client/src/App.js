@@ -13,8 +13,9 @@ import SignInPage from './Components/SignInPage/SignInPage';
 import SignUpPage from './Components/SignUpPage/SignUpPage';
 import EventPage from './Components/EventPage/EventPage';
 import RegisterYourEvent from './Components/RegisterYourEvent/RegisterYourEvent';
-import PaymentPage from './Components/PaymentPage/PaymentPage';
-import  { EventDataProvider } from './store/event-Context'
+import Partner from './Components/Partner/Partner'
+
+import { EventDataProvider } from './store/event-Context'
 
 function App() {
   return (
@@ -32,8 +33,8 @@ function App() {
         <Route path="/contactUs">
           <HomePage />
         </Route>
-        <Route path="/payment">
-          <PaymentPage />
+        <Route path="/Partner">
+          <Partner />
         </Route>
         <Route path='/event_near_you'>
           <EventPage />

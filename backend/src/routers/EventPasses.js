@@ -57,12 +57,12 @@ router.post('/pass/buy/:id', auth, async (req, res) => {
 
 
         const QrCode = await QrGenerator(data1)
-        //  console.log(makeThemCharge);
 
-         await generateInvoice(req.body.event, req.user, req.body.NumberOfPasses, QrCode);
+
+        await generateInvoice(req.body.event, req.user, req.body.NumberOfPasses, QrCode);
 
         await EventPass.save()
-        sendUserBuyPassEmail(token.email, req.user.name)
+        sendUserBuyPassEmail(req.user.emailId, req.user.name)
         res.status(201).send({ EventPass, makeThemCharge })
     } catch (e) {
         console.log(e);

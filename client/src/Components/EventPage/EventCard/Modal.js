@@ -29,6 +29,7 @@ export default function ModalEvent(props) {
 
         const response = await axios.post(`http://localhost:8000/pass/buy/${props.data._id}`, body, { headers: { "Authorization": `Bearer ${token1}` } })
         console.log(response.data);
+        props.onHide()
 
     }
     console.log(process.env.REACT_APP_KEY);
@@ -113,7 +114,7 @@ export default function ModalEvent(props) {
                         token={handlePayment}
                         name="Buy your pass"
                         amount={props.data.priceOfPass * numberOfPass * 100}>
-                        <Button>{`payable amount: ${props.data.priceOfPass * numberOfPass} `}</Button>
+                        <Button onClick={props.onHide}>{`payable amount: ${props.data.priceOfPass * numberOfPass} `}</Button>
                     </StripeCheckout>
                 </Modal.Footer>
             </Modal>

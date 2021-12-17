@@ -48,6 +48,7 @@ export default function Header(props) {
                         <NavLink exact activeClassName={classes.active} className={classes.iconDetail} to='/'>Home</NavLink>
                         <NavLink exact activeClassName={classes.active} className={classes.iconDetail} to='/Signin'>signin</NavLink>
                         <NavLink exact activeClassName={classes.active} className={classes.iconDetail} to='/Signup'>signup</NavLink>
+                        <NavLink exact activeClassName={classes.active} className={classes.iconDetail} to='/Partner'>Be-Partner</NavLink>
                         <NavLink exact activeClassName={classes.active} className={classes.iconDetail} to='/contactus'>contactus</NavLink>
 
 
