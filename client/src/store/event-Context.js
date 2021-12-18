@@ -24,7 +24,8 @@ export const EventDataProvider = (props) => {
 
 
     const form1Data = (data) => {
-      
+        console.log(data);
+
         setData({ ...data, ...data1 })
 
 
@@ -32,7 +33,8 @@ export const EventDataProvider = (props) => {
     }
 
     const form2Data = (data) => {
-     
+        console.log(data);
+
         setData({ ...data, ...data1 })
 
 
@@ -40,7 +42,7 @@ export const EventDataProvider = (props) => {
 
     const form3Data = (data) => {
 
-        setData({...data, ...data1 })
+        setData({ ...data, ...data1 })
 
     }
 

@@ -47,6 +47,9 @@ const PartnerSchema = mongoose.Schema({
         type: Boolean,
         //default: false
     },
+    aboutYou: {
+        type: String
+    },
     seen: {
         type: Boolean,
         default: false

@@ -33,7 +33,7 @@ export default function Form1(props) {
 
     if (enteredEventType.trim() !== '' && enteredEventName.trim() !== '' && enteredNumberOfPass.trim() !== '' && enteredPrice.trim() !== '' && enteredDesc.trim() !== '') {
       const data = {
-        eventTypem: enteredEventType,
+        eventType: enteredEventType,
         eventName: enteredEventName,
         numberOfPasses: enteredNumberOfPass,
         priceOfPass: enteredPrice,

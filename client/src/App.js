@@ -34,7 +34,9 @@ function App() {
           <HomePage />
         </Route>
         <Route path="/Partner">
-          <Partner />
+          <EventDataProvider>
+            <Partner />
+          </EventDataProvider>
         </Route>
         <Route path='/event_near_you'>
           <EventPage />
