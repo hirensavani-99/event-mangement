@@ -22,7 +22,7 @@ export default function Form1(props) {
             <div className={classes.rootform}>
 
                 <Card className={classes.container} >
-                    <h1>Lot of information to being a partner</h1>
+                    <h1>Agreements to be partner</h1>
                     <Button className={classes.button} onClick={props.nextStep}> agree</Button>
 
 

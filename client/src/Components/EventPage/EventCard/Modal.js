@@ -4,6 +4,11 @@ import AuthContex from '../../../store/auth-context'
 import axios from 'axios'
 import StripeCheckout from 'react-stripe-checkout'
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
+
 import classes from './Modal.module.css'
 export default function ModalEvent(props) {
     const authCtx = useContext(AuthContex)
@@ -27,9 +32,19 @@ export default function ModalEvent(props) {
             "Content-type": "application/json"
         }
 
-        const response = await axios.post(`http://localhost:8000/pass/buy/${props.data._id}`, body, { headers: { "Authorization": `Bearer ${token1}` } })
-        console.log(response.data);
-        props.onHide()
+        try {
+            const response = await axios.post(`http://localhost:8000/pass/buy/${props.data._id}`, body, { headers: { "Authorization": `Bearer ${token1}` } })
+            console.log(response.data);
+
+            props.onHide()
+
+            toast.success('payment successfull')
+
+
+        } catch (e) {
+            toast.error('payment was not  successfull')
+        }
+
 
     }
     console.log(process.env.REACT_APP_KEY);
@@ -37,6 +52,8 @@ export default function ModalEvent(props) {
 
     return (
         <div>
+            <ToastContainer autoClose={5000}
+            />
             <Modal
                 {...props}
                 size="lg"
@@ -108,7 +125,7 @@ export default function ModalEvent(props) {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={props.onHide}>Close</Button>
-                    <Button onClick={props.onHide}>Pay</Button>
+
                     <StripeCheckout
                         stripeKey="pk_test_51K6yIdAy7KDVZHoTFOdUB6sRjyJBNhvqKha7UAcn5cKmyy1zxyQlF7nCdkVvvpqCm52VRoHZsPbZhEJlVXNTnu7N00paEBKEL2"
                         token={handlePayment}

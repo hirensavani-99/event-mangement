@@ -1,5 +1,5 @@
 
-import React, { useState, useRef, useContext } from 'react'
+import React, { useState, useRef, useContext, memo } from 'react'
 import axios from 'axios'
 
 
@@ -10,10 +10,14 @@ import { Card, Form, Button } from 'react-bootstrap'
 
 
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 import classes from './Forms.module.css'
 
 
-export default function Form3(props) {
+const Form3 = React.memo((props) => {
 
 
     const eventctx = useContext(EventContext)
@@ -39,25 +43,26 @@ export default function Form3(props) {
         setBtnDisable(false)
     }
 
-    const DataSendHandler = async (e) => {
+    const DataSendHandler = (e) => {
         e.preventDefault();
-        console.log('ss');
-        // window.location.reload(false);
 
         const formData = new FormData()
 
-        for (const property in data) {
+        for (let property in data) {
 
             formData.append(property, data[property])
         }
+        try {
 
+            axios.post('http://localhost:8000/partner/register', formData, { headers: { "Content-Type": "form-data" } })
+                .then(response => response.json())
+                .then(data => console.log(data))
+            
 
-
-        let response = await axios.post('http://localhost:8000/partner/register', formData, { headers: { 'My-Custom-Header': 'foobar' } })
-
-        console.log(response);
-        // window.location.assign('http://localhost:3000/Register_your_event_Now')
-
+            props.nextStep();
+        } catch (e) {
+            console.log(e);
+        }
 
     }
 
@@ -76,14 +81,14 @@ export default function Form3(props) {
         <>
 
             <div className={classes.root}>
-
+                <ToastContainer />
                 <Card className={classes.container} >
                     <h2 className={classes.title}>Da<span className={classes.span}>T</span>a</h2>
                     <hr />
                     <Card.Body>
 
                         <Card.Text>
-                            <form >
+                            <form>
                                 <Form.Group controlId="formFile" className="mb-3">
                                     <Form.Label>choose a relevant picture for your Event to show customer</Form.Label>
                                     <Form.Control type="file" onChange={picHandler} />
@@ -99,7 +104,7 @@ export default function Form3(props) {
                                     <Button className={classes.button} onClick={doneHandler}>
                                         Done
                                     </Button>
-                                    <Button type="button" className={classes.button} disabled={btndisable} onClick={(e) => { DataSendHandler(e) }}>
+                                    <Button className={classes.button} onClick={DataSendHandler}  >
                                         Submit
                                     </Button>
                                 </div>
@@ -115,4 +120,7 @@ export default function Form3(props) {
 
 
     )
-}
+})
+
+
+export default Form3

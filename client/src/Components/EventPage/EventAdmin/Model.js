@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
 import FormModel from './FormModel'
+import FormModel1 from './FormModel1'
 import axios from 'axios'
 import AuthContex from '../../../store/auth-context'
 import { ModalDialog, Button, Modal } from 'react-bootstrap'
@@ -17,7 +18,9 @@ export default function Editing(props) {
 
     useEffect(() => {
         const getData = async () => {
-            const response = await axios.get(`http://localhost:8000/event/${props.id}`, { headers: { "Authorization": `Bearer ${token}` } })
+            let url;
+            props.partner ? url = `http://localhost:8000/partner/${props.id}` : url = `http://localhost:8000/event/${props.id}`
+            const response = await axios.get(url, { headers: { "Authorization": `Bearer ${token}` } })
             console.log('run');
             setEvent(response.data)
         }
@@ -34,9 +37,21 @@ export default function Editing(props) {
     }
 
     const handleSubmit = async (e) => {
-        // console.log(dataToUpdate);
-        const response = await axios.patch(`http://localhost:8000/admin/event/${id}`, dataToUpdate, { headers: { "Authorization": `Bearer ${token}` } })
-        setShow(false)
+        e.preventDefault()
+        let url;
+
+        props.partner ? url = `http://localhost:8000/partner/${id}` : url = `http://localhost:8000/admin/event/${id}`
+       
+        console.log(url);
+        try {
+
+            const response = await axios.patch(url, dataToUpdate, { headers: { "Authorization": `Bearer ${token}` } })
+            props.OnupdateHandler()
+            setShow(false)
+
+        } catch (e) {
+            console.log(e);
+        }
 
     }
 
@@ -61,13 +76,14 @@ export default function Editing(props) {
                     <Modal.Title>change data here watever you want to change</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <FormModel data={Event} onSaveupdatedData={saveUpdatedDataHandler} getId={getId} />
+                    {!props.partner && <FormModel data={Event} onSaveupdatedData={saveUpdatedDataHandler} getId={getId} />}
+                    {props.partner && <FormModel1 data={Event} onSaveupdatedData={saveUpdatedDataHandler} getId={getId} />}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose} >
                         Close
                     </Button>
-                    <Button variant="primary" onClick={handleSubmit} >Understood</Button>
+                    <Button variant="primary" onClick={handleSubmit} >Submit</Button>
                 </Modal.Footer>
             </Modal>
         </>

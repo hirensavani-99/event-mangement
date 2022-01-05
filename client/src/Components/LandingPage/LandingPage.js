@@ -3,6 +3,8 @@ import AboutUs from './AboutUs/AboutUs'
 import Header from './Header/Header'
 import NextEvent from './NextEvent/NextEvent'
 import OurServices from './OurServices/Services'
+import Footer from './Footer/Footer'
+
 
 export default function LandingPage() {
     return (
@@ -11,6 +13,8 @@ export default function LandingPage() {
             <NextEvent />
             <AboutUs />
             <OurServices />
+            <Footer />
+
         </div>
     )
 }

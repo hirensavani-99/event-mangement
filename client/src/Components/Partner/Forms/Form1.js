@@ -20,6 +20,8 @@ export default function Form1(props) {
   const contactPersonInputRef = useRef("")
   const contactPhoneNumberInputRef = useRef("")
   const DescInputRef = useRef("")
+  const basePriceInputRef = useRef(0)
+  const maxGuestIdInputRef = useRef(0)
 
   const setData = (e) => {
     e.preventDefault();
@@ -29,15 +31,20 @@ export default function Form1(props) {
     const enteredcontactPerson = contactPersonInputRef.current.value;
     const enteredPhoneNumber = contactPhoneNumberInputRef.current.value;
     const enteredDesc = DescInputRef.current.value;
+    const enteredBasePrice = basePriceInputRef.current.value;
+    const enteredMaxGuest = maxGuestIdInputRef.current.value;
 
 
-    if (enteredOrganizationName.trim() !== '' && enteredOrganizationId.trim() !== '' && enteredcontactPerson.trim() !== '' && enteredPhoneNumber.trim() !== '' && enteredDesc.trim() !== '') {
+    if (enteredOrganizationName.trim() !== '' && enteredBasePrice.trim() !== "" && enteredMaxGuest.trim() !== "" && enteredOrganizationId.trim() !== '' && enteredcontactPerson.trim() !== '' && enteredPhoneNumber.trim() !== '' && enteredDesc.trim() !== '') {
       const data = {
         OrganizationName: enteredOrganizationName,
         OrganizationId: enteredOrganizationId,
         ContactPerson: enteredcontactPerson,
         contactNumber: enteredPhoneNumber,
-        aboutYou: enteredDesc
+        aboutYou: enteredDesc,
+        basePrice: enteredBasePrice,
+        maxGuest: enteredMaxGuest
+
       }
 
       eventctx.form1Data(data)
@@ -61,24 +68,34 @@ export default function Form1(props) {
 
             <Card.Text>
               <Form>
-                <Row className="mb-3">
-                  <Form.Group as={Col} className="mb-3" controlId="exampleForm.ControlInput1">
+                <Row className="mb-1">
+                  <Form.Group as={Col} className="mb-1" controlId="exampleForm.ControlInput1">
                     <Form.Label>Organization Name</Form.Label>
                     <Form.Control type="text" placeholder="xyz organization Name" ref={OrganizationInputRef} />
                   </Form.Group>
-                  <Form.Group as={Col} className="mb-3" controlId="exampleForm.ControlInput1">
+                  <Form.Group as={Col} className="mb-1" controlId="exampleForm.ControlInput1">
                     <Form.Label>Organization Id</Form.Label>
                     <Form.Control type="text" placeholder="GST number" ref={OrganizationIdInputRef} />
                   </Form.Group>
                 </Row>
-                <Row className="mb-3">
-                  <Form.Group as={Col} className="mb-3" controlId="exampleForm.ControlInput1">
+                <Row className="mb-1">
+                  <Form.Group as={Col} className="mb-1" controlId="exampleForm.ControlInput1">
+                    <Form.Label>Base Price</Form.Label>
+                    <Form.Control type="number" placeholder="min 300 $" ref={basePriceInputRef} />
+                  </Form.Group>
+                  <Form.Group as={Col} className="mb-1" controlId="exampleForm.ControlInput1">
+                    <Form.Label>maximum guest</Form.Label>
+                    <Form.Control type="number" placeholder="min 10" ref={maxGuestIdInputRef} />
+                  </Form.Group>
+                </Row>
+                <Row className="mb-1">
+                  <Form.Group as={Col} className="mb-1" controlId="exampleForm.ControlInput1">
                     <Form.Label>Contact Person</Form.Label>
                     <Form.Control type="text" placeholder="Contact Person Name" ref={contactPersonInputRef} />
                   </Form.Group>
                   <Form.Group as={Col}>
                     <Form.Label>Contact PhoneNumber</Form.Label>
-                    <InputGroup className="mb-3">
+                    <InputGroup className="mb-1">
 
 
                       <FormControl aria-label="Amount (to the nearest dollar)" type="string" ref={contactPhoneNumberInputRef} placeHolder="123-456-789" />

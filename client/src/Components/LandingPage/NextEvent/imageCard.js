@@ -11,13 +11,14 @@ import picture from '../../../assets/kites.jpg'
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 650,
+    maxWidth: 300,
+    maxHeight: 350,
     background: 'rgba(0,0,0,0.5)',
     margin: '20px',
   },
   media: {
-    height: 440,
-    width: 440
+    height: 230,
+    width: 300
   },
   title: {
     fontFamily: 'Nunito',
@@ -42,7 +43,7 @@ export default function ImageCard({ event, checked }) {
       <Card className={classes.root}>
         <CardMedia
           className={classes.media}
-          image={picture}
+          image={`/uploads/${event.picture}`}
           title="Contemplative Reptile"
         />
         <CardContent>
@@ -52,7 +53,7 @@ export default function ImageCard({ event, checked }) {
             component="h1"
             className={classes.title}
           >
-            {event.title}
+            {event.eventName}
           </Typography>
           <Typography
             variant="body2"
@@ -60,7 +61,7 @@ export default function ImageCard({ event, checked }) {
             component="p"
             className={classes.desc}
           >
-            {event.description}
+            {event.desc ? event.desc.slice(0, 50) + '...more' : ''}
           </Typography>
         </CardContent>
       </Card>

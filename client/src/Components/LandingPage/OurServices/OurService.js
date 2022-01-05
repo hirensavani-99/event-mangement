@@ -2,15 +2,23 @@
 import React from 'react'
 
 import classes from './ourService.module.css'
+import Card from 'react-bootstrap/Card'
 
-import img from '../../../assets/holi.jpg'
-export default function OurService() {
+
+export default function OurService(props) {
+
     return (
         <div className={classes.root}>
-            <div className={classes.picRoot}>
-                <img className={classes.pic} src={img} alt="img" />
-            </div>
-            <h3 className={classes.lable}>CORPORATE EVENTS & SEMINARS</h3>
+            <Card style={{ width: '18rem', height: '16rem' }}>
+                <Card.Img variant="top" src={`/uploads/${props.service.pic}`} className={classes.img} />
+                <Card.Body>
+                    <Card.Title className={classes.dark} >{props.service.title}</Card.Title>
+
+                </Card.Body>
+
+
+
+            </Card>
         </div>
     )
 }

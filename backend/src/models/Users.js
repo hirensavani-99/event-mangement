@@ -8,10 +8,14 @@ const UsersSchema = mongoose.Schema({
     name: {
         type: String,
         require: true,
+        min: 3,
+        max: 15
     },
     surename: {
         type: String,
-        require: true
+        require: true,
+        min: 3,
+        max: 15
     },
     location: {
         type: String,
@@ -19,15 +23,21 @@ const UsersSchema = mongoose.Schema({
     },
     contactNumber: {
         type: String,
-        require: true
+        require: true,
+        min:9,
+        max:20
     },
     emailId: {
         type: String,
-        require: true
+        require: true,
+        max: 50,
+        unique: true
     },
     password: {
         type: String,
-        require: true
+        require: true,
+        min: 7,
+        max: 25
     },
     isadmin: {
         type: Boolean,

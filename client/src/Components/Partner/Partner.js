@@ -7,6 +7,7 @@ import Form0 from './Forms/Form0'
 import Form1 from './Forms/Form1'
 import Form2 from './Forms/Form2'
 import Form3 from './Forms/Form3'
+import Form4 from './Forms/Form4';
 
 export default function Partner() {
     return (
@@ -18,6 +19,10 @@ export default function Partner() {
                 <Form1 hashKey={"basic"} />
                 <Form2 hashKey={"contact"} />
                 <Form3 hashKey={"documents"} />
+
+                <Form4 hashKey={"documents1"} />
+
+
             </StepWizard>
         </div >
     )

@@ -27,7 +27,7 @@ export default function EventCard(props) {
     return (
         <div key={props.event._id} className={classes.root}>
             <Card style={{ width: '18rem', height: '21rem' }}>
-                <Card.Img variant="top" src={`/uploads/${props.event.picture}`} />
+                <Card.Img variant="top" src={`/uploads/${props.event.picture}`} className={classes.img} />
                 <Card.Body>
                     <Card.Title className={classes.dark} >{props.event.eventName ? props.event.eventName.slice(0, 20) : ''}</Card.Title>
                     <Card.Text>

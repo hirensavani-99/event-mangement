@@ -12,9 +12,9 @@ const sendWelcomeEmail = (email, name) => {
         to: email,
         from: 'hiren99savani@gmail.com',
         subject: 'Welcome to the make my event ',
-        text: `Hello! ${name} Welcome the make my event .Let me know how you get along with the app.`
+        text: `Hello! ${name} Welcome to EventEve.Thank you for registering your account with us.Book your first event with EventEve and let us know how was your experience with EventEve.`
     })
-    console.log('check you email ');
+
 }
 
 const sendUserDeleteEmail = (email, name) => {
@@ -34,7 +34,7 @@ const sendUserBuyPassEmail = (email, name) => {
         from: 'hiren99savani@gmail.com',
         subject: 'Confirmation',
         text: `Thank you  ${name} for taking part in to fest.I hope you will enjoy.`,
-   
+
         attachments: [
             {
                 content: attachment,

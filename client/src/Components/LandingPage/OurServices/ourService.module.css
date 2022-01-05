@@ -7,6 +7,9 @@
     
 }
 
+.dark{
+    color: black;
+}
 .pic{
     border-radius: 10% 40% 10% 40%;
     height: 300px;

@@ -9,6 +9,7 @@ import { Link as Scroll } from 'react-scroll'
 
 
 import classes from './Header.module.css'
+import logo from '../../../assets/logo.png'
 
 export default function Header(props) {
     const [checked, setChecked] = useState(false)
@@ -40,7 +41,7 @@ export default function Header(props) {
         <div className={props.LandingPage ? classes.root : classes.root1} id="Header">
             <AppBar className={classes.appBar} color="transparent" elevation={0}>
                 <Toolbar className={classes.appBarWrapper} color="inherit">
-                    <h1 className={classes.appBarTitle}>Make<span className={classes.nameMiddle}>My</span>Event</h1>
+                    <div className={classes.appBarTitle}><img className={classes.img} src={logo} /></div>
 
                     {(toggaleMenu || screenWidth > 600) && <div className={classes.list}>
 
@@ -49,9 +50,7 @@ export default function Header(props) {
                         <NavLink exact activeClassName={classes.active} className={classes.iconDetail} to='/Signin'>signin</NavLink>
                         <NavLink exact activeClassName={classes.active} className={classes.iconDetail} to='/Signup'>signup</NavLink>
                         <NavLink exact activeClassName={classes.active} className={classes.iconDetail} to='/Partner'>Be-Partner</NavLink>
-                        <NavLink exact activeClassName={classes.active} className={classes.iconDetail} to='/contactus'>contactus</NavLink>
-
-
+                       
                     </div>}
                     <MenuIcon className={classes.dropdwnbtn} onClick={toggalNav} />
                 </Toolbar>
@@ -59,7 +58,7 @@ export default function Header(props) {
             </AppBar>
             {props.LandingPage && <Collapse in={checked} {...(checked ? { timeout: 1000 } : {})} collapsedHeight={50}>
                 <div className={classes.container}>
-                    <h1 className={classes.title}>Welcome to <br />Make<span className={classes.nameMiddle}>My</span>Event.</h1>
+                    <h1 className={classes.title}>Welcome to <br />Even<span className={classes.nameMiddle}>T</span>Eve</h1>
                     <Scroll to="NextEvent" smooth={true}>
 
                         <IconButton>

@@ -14,7 +14,7 @@ const EventPlan = [
         pic: pic2
     },
     {
-        title: 'Let us Manage your event',
+        title: 'Let_us_Manage_your_event',
         desc: 'In past 5 Years we have managed more than 1500 events go check that out for future details',
         buttondesc: "Register Today !",
         pic: pic3

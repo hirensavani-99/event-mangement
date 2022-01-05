@@ -42,6 +42,21 @@ router.post('/createEvent', auth, upload.fields([{ name: 'picture', maxCount: 1 
     }
 })
 
+// get event where ad is to show
+router.get('/getEventToAddvertise', async (req, res) => {
+    try {
+        let event;
+        event = await Events.find({ seen: true, advertisement: true })
+
+
+
+        res.status(200).send(event)
+    } catch (e) {
+        res.status(400).send(e)
+    }
+})
+
+
 //getting allevents by seen
 router.get('/getallEvents', auth, async (req, res) => {
     try {
@@ -115,6 +130,8 @@ router.get('/eventType', auth, async (req, res) => {
 router.patch('/event/:id', auth, async (req, res) => {
 
     //what owner of the event want to modify 
+    const wantToUpdate = Object.keys(req.body)
+
     const allowUpdate = [      // this are the property owner can modify
         'eventType', "eventName", "desc",
         "address", "numberOfPasses", "priceOfPass",

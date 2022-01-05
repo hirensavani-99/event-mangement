@@ -12,7 +12,8 @@ const EventPassesSchema = mongoose.Schema({
         require: true
     },
     NumberOfPass: {
-        type: Number
+        type: Number,
+        require: true
     },
     Charged: {
         type: Number

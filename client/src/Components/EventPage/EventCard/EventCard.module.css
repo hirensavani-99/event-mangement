@@ -1,7 +1,8 @@
 .root{
-    margin: 0.5rem;
+    margin: 2rem;
     background-color: F1F5F6;
     border-bottom: 2PX solid rgb(148, 125, 233);
+    border-radius: 3%;
 }
 
 .links{
@@ -10,6 +11,19 @@
    
 }
 
+.img{
+    margin: -3% -5% 0%  3%;
+    -webkit-box-shadow: 8px 11px 21px 4px rgba(0,0,0,0.78); 
+box-shadow: 8px 11px 21px 4px rgba(0,0,0,0.78);
+border-top: 4PX solid rgb(141, 112, 248);
+}
+
+.img:hover{
+    margin: -3% -5% -5%  3%;
+    transition: 1s;
+    height: 110%;
+    width: 110%;
+}
 
 .button{
     background: rgb(148, 125, 233);;

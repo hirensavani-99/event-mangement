@@ -1,11 +1,11 @@
 .root{
-    min-height: 100vh;
+    min-height: 50vh;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
     margin-top: 10px;
-    
+  
 }
 
 .tags{
@@ -17,5 +17,10 @@
 .hr{
     width: 80%;
     margin: 0 10%;
+    color: #fff;
+}
+
+.h1{
+    margin: 1%;
     color: #fff;
 }

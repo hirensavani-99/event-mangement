@@ -1,0 +1,15 @@
+
+.root0{
+    width: 100vw;
+    height: 100vh;
+  
+    font-family: nunito;
+}
+.root{
+    display: flex;
+    flex-direction: row;
+    margin: 2%;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}

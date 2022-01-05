@@ -47,7 +47,7 @@ const generateInvoice = async (event, user, NumberOfPass, QrCode) => {
         "bottomNotice": "Thank you for taking part of celebrations"
     };
 
- 
+
     const result = await easyinvoice.createInvoice(data);
 
     await fs.writeFileSync("invoice.pdf", result.pdf, 'base64');

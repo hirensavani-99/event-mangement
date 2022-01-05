@@ -7,6 +7,7 @@ import EventContext from '../../../store/event-Context'
 import AuthContext from '../../../store/auth-context'
 
 import { Card, Form, Button } from 'react-bootstrap'
+import { ToastContainer, toast } from 'react-toastify';
 
 
 
@@ -41,7 +42,7 @@ export default function Form3(props) {
 
   const DataSendHandler = async (e) => {
     e.preventDefault();
-    console.log('ss');
+    toast.info('registering your event wait for some time')
     // window.location.reload(false);
 
     const formData = new FormData()
@@ -52,9 +53,15 @@ export default function Form3(props) {
     }
 
 
+    try {
 
-    let response = await axios.post('http://localhost:8000/createEvent', formData, { headers: { "Authorization": `Bearer ${token}`, 'My-Custom-Header': 'foobar' } })
-    window.location.assign('http://localhost:3000/Register_your_event_Now')
+      let response = await axios.post('http://localhost:8000/createEvent', formData, { headers: { "Authorization": `Bearer ${token}`, 'My-Custom-Header': 'foobar' } })
+      toast.info('registed successfully wait 1 bussiness day for an update')
+    } catch (e) {
+      toast.error('we could not registered you event')
+    }
+
+    window.location.assign('http://localhost:3000/Home')
 
 
   }
@@ -72,7 +79,7 @@ export default function Form3(props) {
   return (
 
     <>
-
+      <ToastContainer />
       <div className={classes.root}>
 
         <Card className={classes.container} >

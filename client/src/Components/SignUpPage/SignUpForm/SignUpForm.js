@@ -1,18 +1,13 @@
 import React, { useRef, useState, useContext } from 'react'
-
 import { useHistory } from 'react-router-dom'
+
 import AuthContext from '../../../store/auth-context'
 
-import Alert from '../../../utils/Alert'
-
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-
+import { Form, Button, Row, Col } from 'react-bootstrap'
 
 import { DotLoader } from 'react-spinners'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import classes from './signUpForm.module.css'
 
@@ -20,10 +15,7 @@ import classes from './signUpForm.module.css'
 export default function SignUpForm() {
 
     const authctx = useContext(AuthContext)
-
     const [loading, setloading] = useState(false)
-
-    const [error, seterror] = useState(null)
 
     let history = useHistory()
 
@@ -31,10 +23,7 @@ export default function SignUpForm() {
     const sureNameInputRef = useRef()
     const mobileCodeInputRef = useRef()
     const mobileNumberInputRef = useRef()
-    const addressInputRef = useRef()
     const cityInputRef = useRef()
-    const stateInputRef = useRef()
-    const zipInputRef = useRef()
     const emailInputRef = useRef()
     const passwordInputRef = useRef()
 
@@ -45,7 +34,7 @@ export default function SignUpForm() {
         const enteredName = nameInputRef.current.value;
         const enteredSureName = sureNameInputRef.current.value;
         const enteredMobileNumber = mobileCodeInputRef.current.value + ' ' + mobileNumberInputRef.current.value;
-        const enteredAddress = addressInputRef.current.value + ' ' + zipInputRef.current.value + ' ' + cityInputRef.current.value + ' ' + stateInputRef.current.value;
+        const enteredAddress = cityInputRef.current.value;
         const entredEmail = emailInputRef.current.value;
         const enteredPassword = passwordInputRef.current.value;
 
@@ -59,13 +48,6 @@ export default function SignUpForm() {
             password: enteredPassword
         }
 
-        const showAlert = (alert) => {
-            seterror(alert)
-
-            setTimeout(() => {
-                seterror(null)
-            }, 2000)
-        }
 
         const requestOptions = {
             method: 'POST',
@@ -75,10 +57,12 @@ export default function SignUpForm() {
 
         try {
 
-            showAlert("getting logged In")
+            toast.info("wait! you are almost there")
             if (enteredName.trim() !== '' && enteredSureName.trim() !== '' && enteredMobileNumber.trim() !== '' && enteredAddress.trim() !== '' && entredEmail.trim() !== '' && enteredPassword.trim() !== '') {
                 const response = await fetch('http://localhost:8000/users/register', requestOptions)
                 const responded = await response.json()
+
+                toast.info("you successfully registerd your account!")
 
                 const { _id, name, token, emailId } = responded.User;
 
@@ -86,15 +70,15 @@ export default function SignUpForm() {
 
                 authctx.fetchuser({ _id, name, token, emailId })
 
-
-                history.replace('/contactus')
+                history.replace('/home')
             } else {
-                showAlert('you have not filled enough data in form!')
+                toast.error("you have not provided enough data!")
+
             }
 
             setloading(false)
         } catch (e) {
-            showAlert(e)
+            toast.error("something went wrong! Account not created !")
             setloading(false)
         }
 
@@ -107,8 +91,9 @@ export default function SignUpForm() {
     return (
         <>
             {loading && <div style={style} >div<DotLoader color="#adff2f" loading={loading} size={120} /></div>}
-            <div className={classes.alert}><Alert className={classes.alert} description={error} /></div>
+
             {!loading && <div className={classes.root}>
+                <ToastContainer />
 
                 <Form>
 
@@ -119,7 +104,7 @@ export default function SignUpForm() {
                                 type="string"
                                 placeholder="Enter Name"
                                 ref={nameInputRef}
-
+                                required
                             />
                         </Form.Group>
 
@@ -129,12 +114,13 @@ export default function SignUpForm() {
                                 type="string"
                                 placeholder="Enter surename"
                                 ref={sureNameInputRef}
+                                required
                             />
                         </Form.Group>
 
                     </Row>
 
-                    <Row>
+                    <Row className="mb-3">
                         <Form.Group as={Col} controlId="formGridState">
                             <Form.Label>country code</Form.Label>
                             <Form.Select
@@ -151,52 +137,19 @@ export default function SignUpForm() {
                                 type="string"
                                 placeholder="Enter contact Number"
                                 ref={mobileNumberInputRef}
+                                required
                             />
                         </Form.Group>
-                    </Row>
-                    <Row className={classes.add}>
-
-                        <Form.Group className="mb-3" controlId="formGridAddress2">
-                            <Form.Label>Address</Form.Label>
-                            <Form.Control
-                                type="string"
-                                placeholder="Apartment, studio, or floor"
-                                ref={addressInputRef}
-                            />
-                        </Form.Group>
-                    </Row>
-
-                    <Row className="mb-3">
                         <Form.Group as={Col} controlId="formGridCity">
                             <Form.Label>City</Form.Label>
                             <Form.Control
                                 type="string"
                                 placeholder="city.."
                                 ref={cityInputRef}
+                                required
                             />
                         </Form.Group>
-
-                        <Form.Group as={Col} controlId="formGridState">
-                            <Form.Label>State</Form.Label>
-                            <Form.Select
-                                defaultValue="Choose..."
-                                ref={stateInputRef}
-                            >
-                                <option>Choose...</option>
-                                <option>surat</option>
-                                <option>mumbai</option>
-                            </Form.Select>
-                        </Form.Group>
-
-                        <Form.Group as={Col} controlId="formGridZip">
-                            <Form.Label>Zip</Form.Label>
-                            <Form.Control
-                                type="string"
-                                placeholder="enterZip"
-                                ref={zipInputRef} />
-                        </Form.Group>
                     </Row>
-
 
                     <Row className="mb-3">
 
@@ -206,6 +159,7 @@ export default function SignUpForm() {
                                 type="email"
                                 placeholder="Enter email"
                                 ref={emailInputRef}
+                                required
                             />
                         </Form.Group>
 
@@ -215,15 +169,16 @@ export default function SignUpForm() {
                                 type="password"
                                 placeholder="Password"
                                 ref={passwordInputRef}
+                                required
                             />
                         </Form.Group>
                     </Row>
 
                     <Form.Group className="mb-3" id="formGridCheckbox">
-                        <Form.Check type="checkbox" label="Check me out" />
+                        <Form.Check type="checkbox" label="agree terms and conditions" />
                     </Form.Group>
 
-                    <Button variant="primary" type="submit" onClick={authSubmitHandler}>
+                    <Button className={classes.button} type="submit" onClick={authSubmitHandler}>
                         Submit
                     </Button>
                 </Form>

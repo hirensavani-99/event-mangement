@@ -7,48 +7,87 @@ const jwt = require('jsonwebtoken')
 const PartnerSchema = mongoose.Schema({
     OrganizationName: {
         type: String,
-        //require: true,
+        require: true,
+        min: 3,
+        max: 50,
+        unique: true
     },
     OrganizationId: {
-        type: String
+        type: String,
+        unique: true,
+        min: 3,
+        max: 50,
     },
     OrganizationAddress: {
         type: String,
-        //require: true
+        require: true
     },
     ContactPerson: {
         type: String,
-        //require: true
+        require: true,
+        min: 3,
+        max: 20,
+
     },
     contactEmail: {
         type: String,
-        //require: true
+        require: true,
+        max: 50,
+        unique: true
     },
     contactNumber: {
         type: String,
-        // require: true
+        require: true,
+        min: 9,
+        max: 15
     },
     password: {
         type: String,
-        // require: true
+        require: true,
+        min: 7,
+        max: 25
     },
     documents: {
         type: String,
-        // require: true
+        require: true
     },
     pictures: {
         type: String,
-        //require: true
+        require: true
     },
     rating: {
         type: String
     },
     isadmin: {
         type: Boolean,
-        //default: false
+        default: false
+    },
+    minGuest: {
+        type: Number,
+        default: 10,
+        require: true,
+
+    },
+    maxGuest: {
+        type: Number,
+        default: 1000,
+        require: true,
+
     },
     aboutYou: {
-        type: String
+        type: String,
+        require: true,
+        min: 5,
+        max: 50
+    },
+    basePrice: {
+        type: Number,
+        default: 300,
+        require: true
+    },
+    city: {
+        type: String,
+        default: "surat"
     },
     seen: {
         type: Boolean,

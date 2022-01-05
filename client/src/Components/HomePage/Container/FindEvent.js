@@ -18,7 +18,7 @@ export default function FindEvent(props) {
                             {props.plane.desc}
                         </Card.Text>
 
-                        <Button variant="outline-success"><Link to={`/${props.plane.title}`} >{props.plane.buttondesc} </Link></Button>
+                        <Button className={classes.btn}><Link to={`/${props.plane.title}`} className={classes.nav} >{props.plane.buttondesc} </Link></Button>
                     </Card.Body>
                 </div>
             </Card>

@@ -9,9 +9,18 @@
     top: 7px;
     padding: 5px;
 }
+.appBarimg{
+    height: 20%;
+    width: 20%;
+}
+.logout{
+    color: #5AFF3D;
+    cursor: pointer;
+}
+
 
 .nameMiddle{
-    color: #5AFF3D
+    color: #5AFF3D;
 }
 
 .link{

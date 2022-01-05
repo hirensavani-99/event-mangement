@@ -5,12 +5,13 @@ import AuthContext from '../../../store/auth-context';
 
 import { Card, Form, Button } from 'react-bootstrap'
 
-import Alert from '../../../utils/Alert'
+
 
 import classes from './SignInForm.module.css'
 
 
 import { DotLoader } from 'react-spinners'
+import { ToastContainer, toast } from 'react-toastify';
 
 export default function SignIn() {
 
@@ -20,7 +21,9 @@ export default function SignIn() {
 
     const [loading, setloading] = useState(false)
 
-    const [error, seterror] = useState(null)
+
+    const [partner, setPartner] = useState(false)
+    console.log(partner);
 
 
     let history = useHistory()
@@ -31,18 +34,23 @@ export default function SignIn() {
         setloading(true)
         const enteredEmail = emailInputRef.current.value;
         const enteredPassword = passwordInputRef.current.value;
+        let data;
 
-        const data = {
-            emailId: enteredEmail,
-            password: enteredPassword
-        }
-        const showAlert = (alert) => {
-            seterror(alert)
+        if (partner) {
+            data = {
+                contactEmail: enteredEmail,
+                password: enteredPassword
+            }
 
-            setTimeout(() => {
-                seterror(null)
-            }, 2000)
+        } else {
+            data = {
+                emailId: enteredEmail,
+                password: enteredPassword
+            }
         }
+
+
+
 
         const requestOptions = {
             method: 'POST',
@@ -52,37 +60,45 @@ export default function SignIn() {
 
         try {
             if (enteredEmail.trim !== '' && enteredPassword.trim() !== '') {
-                seterror("you are logging In")
 
-                const response = await fetch('http://localhost:8000/users/login', requestOptions);
+                let url;
+                partner ? url = "http://localhost:8000/Partner/login" : url = 'http://localhost:8000/users/login'
+
+
+                const response = await fetch(url, requestOptions);
                 const responded = await response.json()
 
 
-                const { _id, name, token, emailId } = responded.user;
+                if (!partner) {
+                    toast.success("logged in as a user")
+                    const { _id, name, token, emailId } = responded.user;
+                    authctx.login(responded.token);
+                    authctx.fetchuser({ _id, name, token, emailId })
+                    history.replace('/home')
+                } else {
+                    toast.info("logged in as a partner")
+                    console.log(responded);
+                    const { _id, OrganizationName, token, contactEmail } = responded.partner;
+                    authctx.login(responded.token);
+                    authctx.fetchuser({ _id, OrganizationName, token, contactEmail })
+                    history.replace('/conversation')
+                }
 
-
-                authctx.login(responded.token);
-
-                authctx.fetchuser({ _id, name, token, emailId })
-
-
-
-                history.replace('/contactus')
             } else {
-                seterror("not provided enough data")
+                toast.error("not provided enough data")
             }
             setloading(false)
         } catch (e) {
-            showAlert('oopps! something went wrong')
+            toast.error("Authentication failed")
             setloading(false)
         }
     }
 
     return (
         <>
-            {error && <div className={classes.alert}><Alert className={classes.alert} description={error} /></div>}
-            <div className={classes.root}>
 
+            <div className={classes.root}>
+                <ToastContainer />
                 <Card className={classes.container} >
                     <h2 className={classes.title}>Si<span className={classes.span}>g</span>nIn</h2>
                     <hr />
@@ -106,7 +122,8 @@ export default function SignIn() {
                                     </Form.Group>
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                                    <Form.Check type="checkbox" label="Check me out" />
+                                    <Form.Check type="checkbox" label="remember me" />
+                                    <Form.Check type="checkbox" label="Login as a partner" onChange={(e) => { setPartner(e.target.checked) }} />
                                 </Form.Group>
                                 {!loading ? <Button type="submit" className={classes.button} onClick={authSubmitHandler}>
                                     Submit
@@ -123,29 +140,3 @@ export default function SignIn() {
 
     )
 }
-
-
-{/*
- <FormCard buttonText="submit"
-                            title="login page">
-                            <FormTextInput
-                                name="password"
-                                type="password"
-                                label="password"
-                                placeholder="enter password"
-                                onChange={true}
-                                onBlur={true}
-
-                                error={false}
-                            />
-                            <FormTextInput
-                                name="password"
-                                type="password"
-                                label="password"
-                                placeholder="enter password"
-                                onChange={true}
-                                onBlur={true}
-                                value={12345678}
-                                error={false}
-                            />
-                        </FormCard>*/ }

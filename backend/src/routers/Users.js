@@ -12,8 +12,8 @@ router.post('/users/register', async (req, res) => {
     try {
 
         await User.save()
-        //  sendWelcomeEmail(User.emailId, User.name)
-        
+        sendWelcomeEmail(User.emailId, User.name)
+
         const token = await User.generateToken()
         res.status(201).send({ User, token })
     } catch (e) {
@@ -61,6 +61,20 @@ router.post('/user/logoutAll', auth, async (req, res) => {
         res.status(500).send(e)
     }
 })
+
+//get user by id
+
+router.get("/user/:id", auth, async (req, res) => {
+    try {
+      
+        const user = await Users.findById(req.params.id)
+        console.log('dd');
+        res.status(200).send(user)
+    } catch (e) {
+        res.status(400).send("not found")
+    }
+})
+
 
 //getting user 
 

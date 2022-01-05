@@ -4,13 +4,9 @@ import AuthContex from '../../../store/auth-context'
 import axios from 'axios'
 
 export default function FormModel(props) {
-    //console.log(props);
+    console.log(props);
 
-    const eventRef = useRef(props.data.eventName)
-    const addressRef = useRef(props.data.address)
-    const seenRef = useRef(props.data.seen)
-    const numberOfpassRef = useRef(props.data.numberOfPasses)
-    const priceOfpass = useRef(props.data.priceOfPass)
+    
 
 
     const [data, setdata] = useState(props.data)

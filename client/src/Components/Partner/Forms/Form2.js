@@ -35,12 +35,14 @@ export default function Form2(props) {
         const enteredEmail = emailInputRef.current.value
         const enteredPassword = passwordInputRef.current.value
         const enteredAddress = addressInputRef.current.value + ' ' + cityInputRef.current.value + ' ' + stateInputRef.current.value + ' ' + PostalCodeInput.current.value
+        const city = cityInputRef.current.value
 
-        if ( enteredEmail.trim() !== '' && enteredPassword !== '' && enteredAddress.trim() !== '') {
+        if (enteredEmail.trim() !== '' && enteredPassword !== '' && enteredAddress.trim() !== '') {
             const data = {
                 contactEmail: enteredEmail,
                 password: enteredPassword,
-                OrganizationAddress: enteredAddress
+                OrganizationAddress: enteredAddress,
+                city: city
 
             }
             eventctx.form2Data(data)
